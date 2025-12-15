@@ -1,0 +1,382 @@
+/* --- Global Styles and Theming --- */
+:root {
+  /* Define main colors for a dark theme */
+  --color-dark-bg: #1e1e28; /* Dark background */
+  --color-card-bg: #2a2a38; /* Slightly lighter card/section background */
+  --color-primary: #5a7d9a; /* Main accent color (e.g., link hover, focus) */
+  --color-text-light: #f0f0f0; /* Light text for dark background */
+  --color-text-muted: #aaaaaa; /* Muted text */
+  --color-success: #4caf50; /* For success/add buttons */
+  --color-danger: #f44336; /* For danger/delete buttons */
+  --color-border: #3c3c52; /* Subtle border color */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+}
+
+h2 {
+  color: var(--color-text-light);
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+/* --- Navigation Bar (NavBar.jsx) --- */
+.nav-bar {
+  background-color: var(--color-card-bg);
+  padding: 15px 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.nav-bar a {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+  transition: color 0.3s, background-color 0.3s;
+  border-radius: 4px;
+}
+
+.nav-bar a:hover {
+  color: var(--color-dark-bg);
+  background-color: var(--color-primary);
+}
+
+/* --- Utility Classes --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* General button styling */
+button {
+  cursor: pointer;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s, opacity 0.3s;
+  margin: 5px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Specific button styles */
+button[type="submit"],
+.add-button {
+  background-color: var(--color-success);
+  color: var(--color-dark-bg);
+}
+
+/* Remove button in MyCharacters */
+.remove-button {
+  background-color: var(--color-danger);
+  color: var(--color-text-light);
+}
+
+.update-button {
+  background-color: #3f51b5; /* A blue for update */
+  color: var(--color-text-light);
+}
+
+/* --- List Components (AllCharacters, AllWeapons) --- */
+.list-section {
+  padding: 20px;
+  background-color: var(--color-card-bg);
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+ul li {
+  background-color: var(--color-dark-bg);
+  padding: 10px 15px;
+  border-radius: 6px;
+  border-left: 3px solid var(--color-primary);
+  width: 200px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+ul li:hover {
+  transform: translateY(-3px);
+  border-left-color: var(--color-success);
+}
+
+ul li a {
+  text-decoration: none;
+  color: var(--color-text-light);
+  font-weight: 500;
+  display: block;
+}
+
+ul li a:hover {
+  color: var(--color-primary);
+}
+
+/* Link in AllCharacters to View My Characters */
+.view-my-chars-link {
+  display: block;
+  text-align: center;
+  margin: 15px 0;
+  color: var(--color-success);
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.view-my-chars-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* --- Detail Pages (CharacterDetails, WeaponDetails) --- */
+.details-container {
+  padding: 30px;
+  background-color: var(--color-card-bg);
+  margin: 30px auto;
+  max-width: 900px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.details-container img {
+  border-radius: 6px;
+  border: 3px solid var(--color-border);
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 15px 10px;
+  margin-top: 20px;
+}
+
+dt {
+  font-weight: bold;
+  color: var(--color-primary);
+  grid-column: 1 / 2;
+  text-align: right;
+}
+
+dd {
+  grid-column: 2 / 3;
+  margin-left: 0;
+}
+
+/* Specific styling for nested <dd> elements (like skills) */
+dd dd {
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+/* --- MyCharacters (Obtained List) --- */
+/* Base style for individual card */
+.my-char-list .char-card {
+  background-color: var(--color-card-bg);
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border-left: 5px solid var(--color-primary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  display: flex; /* Use flexbox for the main card layout */
+  flex-direction: column; /* Stack content and actions vertically */
+  gap: 15px;
+}
+
+/* Container for details and image, arranged horizontally */
+.my-char-list .char-card-content {
+  display: flex;
+  justify-content: space-between; /* Space out the info and the image */
+  align-items: flex-start; /* Align items to the top */
+  gap: 30px; /* Space between text and image */
+}
+
+/* Container for text information */
+.my-char-list .char-info {
+  flex-grow: 1; /* Allows info section to take up available space */
+}
+
+.my-char-list h2 {
+  border-bottom: none;
+  margin-top: 0;
+}
+
+.my-char-list p {
+  margin-bottom: 5px;
+  color: var(--color-text-muted);
+}
+
+/* Character Image Styling */
+.my-char-list .char-card-image {
+  max-width: 200px; /* Control image width */
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  object-fit: contain; /* Ensure the image fits nicely */
+  flex-shrink: 0; /* Prevent image from shrinking */
+  max-height: 250px; /* Set a reasonable max height */
+}
+
+/* Styling for the action buttons */
+.my-char-list .char-actions {
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end; /* Push buttons to the right */
+}
+
+/* Remove default list styles if present */
+.my-char-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Ensure the link inside the char-info is visible */
+.my-char-list .char-info a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-style: italic;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.my-char-list .char-info a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 768px) {
+  .my-char-list .char-card-content {
+    flex-direction: column; /* Stack vertically on smaller screens */
+    align-items: center; /* Center items when stacked */
+  }
+  .my-char-list .char-card-image {
+    max-width: 100%; /* Allow image to take full width */
+    max-height: 300px;
+  }
+  .my-char-list .char-info {
+    text-align: center;
+  }
+  .my-char-list .char-actions {
+    justify-content: center; /* Center buttons when stacked */
+  }
+}
+
+/* --- Modals (AddModal, UpdateModal) --- */
+
+/* Modal Backdrop */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top */
+}
+
+/* Modal Content Box */
+.modal-content {
+  background-color: var(--color-card-bg);
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 5px;
+}
+
+.close-btn:hover {
+  color: var(--color-danger);
+}
+
+/* Form Grouping */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: var(--color-text-light);
+  margin-bottom: -10px;
+}
+
+/* Form Controls (Select) */
+.form-control {
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-light);
+  font-size: 16px;
+  appearance: none; /* Remove default styling */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f0f0f0%22%20d%3D%22M287%20173.5c-4.2%204.2-11%204.2-15.2%200l-123.6-123.6c-4.2-4.2-11-4.2-15.2%200L15.4%20173.5c-4.2%204.2-11%204.2-15.2%200-4.2-4.2-4.2-11%200-15.2L135%2034.7c4.2-4.2%2011-4.2%2015.2%200L287%20158.3c4.2%204.2%204.2%2011%200%2015.2z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 12px auto;
+}
+
+.form-group button[type="submit"] {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+}
