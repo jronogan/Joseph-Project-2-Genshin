@@ -1,382 +1,975 @@
-/* --- Global Styles and Theming --- */
+/* styles.css - Dark Theme */
 :root {
-  /* Define main colors for a dark theme */
-  --color-dark-bg: #1e1e28; /* Dark background */
-  --color-card-bg: #2a2a38; /* Slightly lighter card/section background */
-  --color-primary: #5a7d9a; /* Main accent color (e.g., link hover, focus) */
-  --color-text-light: #f0f0f0; /* Light text for dark background */
-  --color-text-muted: #aaaaaa; /* Muted text */
-  --color-success: #4caf50; /* For success/add buttons */
-  --color-danger: #f44336; /* For danger/delete buttons */
-  --color-border: #3c3c52; /* Subtle border color */
+  /* Dark theme colors */
+  --primary-color: #5d9cec;
+  --primary-dark: #4a89dc;
+  --secondary-color: #ed5565;
+  --secondary-dark: #da4453;
+  --success-color: #48cfad;
+  --warning-color: #ffce54;
+  --danger-color: #ed5565;
+  --light-color: #f5f7fa;
+  --dark-color: #121212;
+  --dark-bg: #0a0a0a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --border-radius: 10px;
+  --transition: all 0.3s ease;
 }
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--color-dark-bg);
-  color: var(--color-text-light);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--dark-bg);
+  color: var(--text-primary);
   line-height: 1.6;
+  min-height: 100vh;
 }
 
-/* Headings */
-h1 {
-  text-align: center;
-  margin-top: 20px;
-  color: var(--color-primary);
-  letter-spacing: 1px;
+/* Ensure ALL containers have dark background */
+body > * {
+  background-color: var(--dark-bg);
 }
 
-h2 {
-  color: var(--color-text-light);
-  border-bottom: 2px solid var(--color-primary);
-  padding-bottom: 5px;
-  margin-bottom: 15px;
-}
-
-/* --- Navigation Bar (NavBar.jsx) --- */
-.nav-bar {
-  background-color: var(--color-card-bg);
-  padding: 15px 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
-
-.nav-bar a {
-  color: var(--color-text-light);
-  text-decoration: none;
-  font-weight: bold;
-  padding: 5px 10px;
-  transition: color 0.3s, background-color 0.3s;
-  border-radius: 4px;
-}
-
-.nav-bar a:hover {
-  color: var(--color-dark-bg);
-  background-color: var(--color-primary);
-}
-
-/* --- Utility Classes --- */
+/* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  background-color: transparent;
 }
 
-/* General button styling */
+/* NavBar */
+.nav-bar {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 2rem;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-bar a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.nav-bar a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-color);
+  transform: translateY(-2px);
+}
+
+.nav-bar a.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Homepage */
+h1 {
+  text-align: center;
+  margin: 2rem 0;
+  color: var(--light-color);
+  font-size: 2.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Search Section */
+.search-section {
+  text-align: center;
+  padding: 2rem;
+  background: transparent;
+}
+
+input[type="text"] {
+  width: 300px;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+  display: inline-block;
+  margin: 1rem 0.5rem;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(93, 156, 236, 0.3);
+}
+
+input[type="text"]::placeholder {
+  color: var(--text-secondary);
+}
+
 button {
-  cursor: pointer;
-  padding: 8px 15px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-dark) 100%
+  );
+  color: white;
   border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.3s, opacity 0.3s;
-  margin: 5px;
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-block;
+  margin: 1rem 0.5rem;
+  box-shadow: 0 4px 15px rgba(93, 156, 236, 0.2);
 }
 
 button:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 156, 236, 0.4);
 }
 
-/* Specific button styles */
-button[type="submit"],
+button:active {
+  transform: translateY(0);
+}
+
+/* List Section */
+.list-section {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 1px solid var(--border-color);
+}
+
+.list-section h1 {
+  margin-bottom: 2rem;
+}
+
+.view-my-chars-link,
 .add-button {
-  background-color: var(--color-success);
-  color: var(--color-dark-bg);
+  display: inline-block;
+  margin: 1rem 0;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--success-color) 0%, #37bc9b 100%);
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  color: white;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(72, 207, 173, 0.2);
 }
 
-/* Remove button in MyCharacters */
+.view-my-chars-link:hover,
+.add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(72, 207, 173, 0.4);
+}
+
+/* Characters List */
+.characters-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.characters-list li {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  transition: var(--transition);
+}
+
+.characters-list li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, #2d2d2d 0%, #222222 100%);
+}
+
+.characters-list a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  display: block;
+  transition: var(--transition);
+}
+
+.characters-list a:hover {
+  color: var(--primary-color);
+}
+
+/* My Characters List - Updated for better image display */
+.my-char-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.char-card {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid var(--border-color);
+}
+
+.char-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  border-color: var(--primary-color);
+}
+
+.char-card-content {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 200px;
+}
+
+.char-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.char-info h2 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.char-info p {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.char-info a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  display: inline-block;
+  transition: var(--transition);
+}
+
+.char-info a:hover {
+  text-decoration: underline;
+}
+
+.char-card-image {
+  width: 150px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #252525, #1a1a1a);
+  padding: 5px;
+  flex-shrink: 0;
+}
+
+.char-actions {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(30, 30, 30, 0.9);
+  border-top: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
 .remove-button {
-  background-color: var(--color-danger);
-  color: var(--color-text-light);
+  background: linear-gradient(
+    135deg,
+    var(--danger-color) 0%,
+    var(--secondary-dark) 100%
+  );
+  flex: 1;
 }
 
 .update-button {
-  background-color: #3f51b5; /* A blue for update */
-  color: var(--color-text-light);
+  background: linear-gradient(135deg, var(--warning-color) 0%, #f6bb42 100%);
+  flex: 1;
 }
 
-/* --- List Components (AllCharacters, AllWeapons) --- */
-.list-section {
-  padding: 20px;
-  background-color: var(--color-card-bg);
-  margin: 20px auto;
-  max-width: 800px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-}
-
-ul li {
-  background-color: var(--color-dark-bg);
-  padding: 10px 15px;
-  border-radius: 6px;
-  border-left: 3px solid var(--color-primary);
-  width: 200px;
-  text-align: center;
-  transition: transform 0.2s;
-}
-
-ul li:hover {
-  transform: translateY(-3px);
-  border-left-color: var(--color-success);
-}
-
-ul li a {
-  text-decoration: none;
-  color: var(--color-text-light);
-  font-weight: 500;
-  display: block;
-}
-
-ul li a:hover {
-  color: var(--color-primary);
-}
-
-/* Link in AllCharacters to View My Characters */
-.view-my-chars-link {
-  display: block;
-  text-align: center;
-  margin: 15px 0;
-  color: var(--color-success);
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.view-my-chars-link:hover {
-  color: var(--color-primary);
-  text-decoration: underline;
-}
-
-/* --- Detail Pages (CharacterDetails, WeaponDetails) --- */
+/* DETAILS CONTAINER - FIXED LAYOUT */
 .details-container {
-  padding: 30px;
-  background-color: var(--color-card-bg);
-  margin: 30px auto;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 1px solid var(--border-color);
   max-width: 900px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.details-container img {
-  border-radius: 6px;
-  border: 3px solid var(--color-border);
-  margin-bottom: 20px;
-  object-fit: cover;
+.details-container h2 {
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
 }
 
-dl {
+/* FIXED: Labels on left, info on right */
+.details-container dl {
   display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 15px 10px;
-  margin-top: 20px;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem 2rem;
+  align-items: start;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-dt {
-  font-weight: bold;
-  color: var(--color-primary);
-  grid-column: 1 / 2;
+.details-container dt {
+  font-weight: 600;
+  color: var(--primary-color);
   text-align: right;
+  padding-right: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-right: 2px solid var(--border-color);
 }
 
-dd {
-  grid-column: 2 / 3;
-  margin-left: 0;
+.details-container dd {
+  color: var(--text-primary);
+  margin: 0;
+  padding-left: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-left: 1px solid transparent;
 }
 
-/* Specific styling for nested <dd> elements (like skills) */
-dd dd {
-  font-style: italic;
-  color: var(--color-text-muted);
+/* Make definition groups visually separated */
+.details-container dl > *:nth-child(4n + 1),
+.details-container dl > *:nth-child(4n + 2) {
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* --- MyCharacters (Obtained List) --- */
-/* Base style for individual card */
-.my-char-list .char-card {
-  background-color: var(--color-card-bg);
-  padding: 15px;
-  margin-bottom: 20px;
+.details-container dl > *:nth-child(4n + 3),
+.details-container dl > *:nth-child(4n + 4) {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+/* Image sections */
+.details-container .char-image,
+.details-container .weapon-image {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 30, 0.7),
+    rgba(40, 40, 40, 0.7)
+  );
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.details-container .char-image img {
+  max-height: 350px;
+  width: auto;
   border-radius: 8px;
-  border-left: 5px solid var(--color-primary);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  display: flex; /* Use flexbox for the main card layout */
-  flex-direction: column; /* Stack content and actions vertically */
-  gap: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Container for details and image, arranged horizontally */
-.my-char-list .char-card-content {
-  display: flex;
-  justify-content: space-between; /* Space out the info and the image */
-  align-items: flex-start; /* Align items to the top */
-  gap: 30px; /* Space between text and image */
+.details-container .weapon-image img {
+  max-height: 120px;
+  width: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Container for text information */
-.my-char-list .char-info {
-  flex-grow: 1; /* Allows info section to take up available space */
+/* Skills section - make it stand out */
+.details-container dt:contains("Skills"),
+.details-container dt:contains("Description") {
+  color: var(--warning-color);
+  font-size: 1.1rem;
+  margin-top: 1rem;
 }
 
-.my-char-list h2 {
-  border-bottom: none;
-  margin-top: 0;
-}
-
-.my-char-list p {
-  margin-bottom: 5px;
-  color: var(--color-text-muted);
-}
-
-/* Character Image Styling */
-.my-char-list .char-card-image {
-  max-width: 200px; /* Control image width */
-  height: auto;
-  border-radius: 4px;
-  border: 1px solid var(--color-border);
-  object-fit: contain; /* Ensure the image fits nicely */
-  flex-shrink: 0; /* Prevent image from shrinking */
-  max-height: 250px; /* Set a reasonable max height */
-}
-
-/* Styling for the action buttons */
-.my-char-list .char-actions {
-  padding-top: 10px;
-  border-top: 1px solid var(--color-border);
-  display: flex;
-  justify-content: flex-end; /* Push buttons to the right */
-}
-
-/* Remove default list styles if present */
-.my-char-list {
-  list-style: none;
-  padding: 0;
-}
-
-/* Ensure the link inside the char-info is visible */
-.my-char-list .char-info a {
-  color: var(--color-primary);
-  text-decoration: none;
+.details-container dd:contains("1:"),
+.details-container dd:contains("2:"),
+.details-container dd:contains("3:") {
   font-style: italic;
-  margin-bottom: 10px;
-  display: inline-block;
+  color: var(--text-secondary);
+  padding-left: 1rem;
 }
 
-.my-char-list .char-info a:hover {
-  text-decoration: underline;
-}
-
-/* Responsive adjustment for small screens */
-@media (max-width: 768px) {
-  .my-char-list .char-card-content {
-    flex-direction: column; /* Stack vertically on smaller screens */
-    align-items: center; /* Center items when stacked */
-  }
-  .my-char-list .char-card-image {
-    max-width: 100%; /* Allow image to take full width */
-    max-height: 300px;
-  }
-  .my-char-list .char-info {
-    text-align: center;
-  }
-  .my-char-list .char-actions {
-    justify-content: center; /* Center buttons when stacked */
-  }
-}
-
-/* --- Modals (AddModal, UpdateModal) --- */
-
-/* Modal Backdrop */
+/* Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it's on top */
+  z-index: 1001;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(8px);
 }
 
-/* Modal Content Box */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .modal-content {
-  background-color: var(--color-card-bg);
-  padding: 30px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border-radius: var(--border-radius);
+  padding: 2rem;
   width: 90%;
-  max-width: 450px;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+  animation: slideUp 0.3s ease;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
 }
 
-.modal-content h2 {
-  text-align: center;
-  margin-bottom: 20px;
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-/* Close Button */
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem;
+  right: 1rem;
   background: none;
   border: none;
-  font-size: 24px;
-  color: var(--color-text-muted);
+  font-size: 2rem;
+  color: var(--text-secondary);
   cursor: pointer;
-  padding: 5px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+  z-index: 1002;
 }
 
 .close-btn:hover {
-  color: var(--color-danger);
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--danger-color);
 }
 
-/* Form Grouping */
+/* Form Styles */
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  margin-top: 1.5rem;
 }
 
 .form-group label {
-  font-weight: bold;
-  color: var(--color-text-light);
-  margin-bottom: -10px;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
-/* Form Controls (Select) */
 .form-control {
-  padding: 10px;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background-color: var(--color-dark-bg);
-  color: var(--color-text-light);
-  font-size: 16px;
-  appearance: none; /* Remove default styling */
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f0f0f0%22%20d%3D%22M287%20173.5c-4.2%204.2-11%204.2-15.2%200l-123.6-123.6c-4.2-4.2-11-4.2-15.2%200L15.4%20173.5c-4.2%204.2-11%204.2-15.2%200-4.2-4.2-4.2-11%200-15.2L135%2034.7c4.2-4.2%2011-4.2%2015.2%200L287%20158.3c4.2%204.2%204.2%2011%200%2015.2z%22%2F%3E%3C%2Fsvg%3E");
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  transition: var(--transition);
+  background-color: #2a2a2a;
+  color: var(--text-primary);
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right 10px top 50%;
-  background-size: 12px auto;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
 }
 
-.form-group button[type="submit"] {
-  margin-top: 20px;
-  width: 100%;
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(93, 156, 236, 0.3);
+}
+
+.form-control option {
   padding: 12px;
+  background-color: #2a2a2a;
+  color: var(--text-primary);
+}
+
+.form-group button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Loading and Error States */
+p {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.error-message {
+  background-color: rgba(237, 85, 101, 0.15);
+  border: 1px solid var(--danger-color);
+  color: var(--danger-color);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* Element Colors for Visual Indicators */
+.Element-Anemo {
+  color: #80ffd7;
+  text-shadow: 0 0 10px rgba(128, 255, 215, 0.3);
+}
+.Element-Geo {
+  color: #ffe699;
+  text-shadow: 0 0 10px rgba(255, 230, 153, 0.3);
+}
+.Element-Electro {
+  color: #d9acf5;
+  text-shadow: 0 0 10px rgba(217, 172, 245, 0.3);
+}
+.Element-Dendro {
+  color: #b6e388;
+  text-shadow: 0 0 10px rgba(182, 227, 136, 0.3);
+}
+.Element-Hydro {
+  color: #00eeff;
+  text-shadow: 0 0 10px rgba(0, 238, 255, 0.3);
+}
+.Element-Pyro {
+  color: #ff9999;
+  text-shadow: 0 0 10px rgba(255, 153, 153, 0.3);
+}
+.Element-Cryo {
+  color: #99ffff;
+  text-shadow: 0 0 10px rgba(153, 255, 255, 0.3);
+}
+
+/* Weapon Type Colors */
+.weapon-Sword {
+  color: #ff6b6b;
+}
+.weapon-Claymore {
+  color: #4a89dc;
+}
+.weapon-Polearm {
+  color: #48cfad;
+}
+.weapon-Bow {
+  color: #ffce54;
+}
+.weapon-Catalyst {
+  color: #ac92ec;
+}
+
+/* Loading Animation */
+.loading-spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+  margin: 2rem auto;
+  display: block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-bar {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .nav-bar a {
+    text-align: center;
+  }
+
+  .characters-list {
+    grid-template-columns: 1fr;
+  }
+
+  .my-char-list {
+    grid-template-columns: 1fr;
+  }
+
+  .char-card-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .char-card-image {
+    width: 100%;
+    height: 250px;
+    margin-top: 1rem;
+  }
+
+  .char-actions {
+    flex-direction: column;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  /* Responsive details layout */
+  .details-container dl {
+    grid-template-columns: 1fr;
+    gap: 0.25rem 0;
+  }
+
+  .details-container dt {
+    text-align: left;
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    background: transparent !important;
+  }
+
+  .details-container dd {
+    padding-left: 0;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    background: transparent !important;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  .list-section {
+    padding: 1.5rem;
+  }
+
+  .char-info h2 {
+    font-size: 1.3rem;
+  }
+
+  .my-char-list {
+    grid-template-columns: 1fr;
+  }
+
+  .char-card {
+    min-width: 0;
+  }
+
+  .search-section {
+    padding: 1rem;
+  }
+
+  input[type="text"],
+  button {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: 0.5rem;
+}
+.mt-2 {
+  margin-top: 1rem;
+}
+.mt-3 {
+  margin-top: 1.5rem;
+}
+.mt-4 {
+  margin-top: 2rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+.mb-2 {
+  margin-bottom: 1rem;
+}
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 2rem;
+}
+
+/* Char Images Container */
+.char-images-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.char-main-image {
+  width: 150px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #252525, #1a1a1a);
+  padding: 5px;
+}
+
+.char-icons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.char-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.weapon-icon,
+.element-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 50%;
+  padding: 8px;
+  background: linear-gradient(135deg, #2a2a2a, #1e1e1e);
+  border: 2px solid var(--border-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+}
+
+.weapon-icon:hover,
+.element-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.icon-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Update existing char-card-content styles */
+.char-card-content {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  min-height: 200px;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  .char-card-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .char-images-container {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .char-main-image {
+    width: 200px;
+    height: 250px;
+  }
+
+  .char-icons {
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .weapon-icon,
+  .element-icon {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .char-icons {
+    gap: 1rem;
+  }
+
+  .weapon-icon,
+  .element-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Add to your CSS file */
+.characters-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  transition: var(--transition);
+}
+
+.characters-list li a {
+  flex: 1;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+.characters-list li .char-icon {
+  margin-left: 1rem;
+}
+
+.char-icon-image,
+.weapon-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #252525, #1a1a1a);
+  padding: 5px;
+  border: 1px solid var(--border-color);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .characters-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .characters-list li .char-icon {
+    margin-left: 0;
+    align-self: center;
+  }
+
+  .char-icon-image,
+  .weapon-icon {
+    width: 60px;
+    height: 60px;
+  }
 }

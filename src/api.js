@@ -139,14 +139,7 @@ export const addNewObtainedChar = async ({
   return data.records[0];
 };
 
-export const updateChar = async ({
-  id,
-  Name,
-  Constellation,
-  Weapon,
-  Artifact,
-  Element,
-}) => {
+export const updateChar = async ({ id, Constellation, Weapon, Artifact }) => {
   const res = await fetch(`${AIRTABLE_BASE_URL}/tblWKr61RCEE40YMn/${id}`, {
     method: "PATCH",
     headers: {
@@ -156,12 +149,10 @@ export const updateChar = async ({
     },
     body: JSON.stringify({
       fields: {
-        Name,
         // Need to parseInt since the value is initially a string
         Constellation: parseInt(Constellation),
         Weapon,
         Artifact,
-        Element,
       },
     }),
   });
@@ -173,4 +164,39 @@ export const updateChar = async ({
   const data = await res.json();
   //   Double check if need to do data.records[0] --> 0 since only one fields item inside the array
   return data.fields;
+};
+
+// Obtaining a display name with capital letter and removal of '-'
+export const formatName = (str) => {
+  if (!str) return;
+
+  const spacedStr = str.replace(/-/g, " ");
+
+  return spacedStr
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
+// Obtaining single weapon details
+export const obtainWeaponDetails = async (name) => {
+  const res = await fetch(`${EXT_BASE_URL}weapons/${name}`);
+
+  if (!res.ok) {
+    throw new Error(`Error obtaining the weapon: ${name}`);
+  }
+
+  return await res.json();
+};
+
+// Element Icon
+export const elementIcon = async (name) => {
+  const res = await fetch(`${EXT_BASE_URL}elements/${name}/icon`);
+
+  if (!res.ok) {
+    throw new Error(`Error obtaining the element icon: ${name}`);
+  }
+
+  return await res.json();
 };

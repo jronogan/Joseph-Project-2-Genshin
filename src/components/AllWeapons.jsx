@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "./NavBar";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getAllWeapons } from "../api";
+import { EXT_BASE_URL, formatName, getAllWeapons } from "../api";
 import { Link } from "react-router-dom";
 
 const AllWeapons = () => {
@@ -24,7 +24,15 @@ const AllWeapons = () => {
           <ul className="characters-list">
             {queryAllWeap.data.map((weapon) => (
               <li key={weapon}>
-                <Link to={`/weapons/${weapon}`}>{weapon}</Link>
+                <Link to={`/weapons/${weapon}`}>{formatName(weapon)}</Link>
+                <div className="char-icon">
+                  <img
+                    src={`${EXT_BASE_URL}weapons/${weapon}/icon`}
+                    alt={`${weapon} icon`}
+                    className="weapon-icon"
+                    loading="lazy"
+                  />
+                </div>
               </li>
             ))}
           </ul>

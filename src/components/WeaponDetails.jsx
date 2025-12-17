@@ -22,14 +22,15 @@ const WeaponDetails = () => {
       {queryWeapDetails.isSuccess && (
         <div className="container details-container">
           <h2>{queryWeapDetails.data.name}'s Details</h2>
-          <dl>
-            <dt>Name:</dt>
-            <dd>{queryWeapDetails.data.name}</dd>
+          <div className="weapon-image">
             <img
               src={weaponImageLink}
               alt={`${queryWeapDetails.data.name} card image`}
-              style={{ maxWidth: "100px", height: "auto" }}
             />
+          </div>
+          <dl>
+            <dt>Name:</dt>
+            <dd>{queryWeapDetails.data.name}</dd>
             <dt>Type:</dt>
             <dd>{queryWeapDetails.data.type}</dd>
             <dt>Rarity:</dt>

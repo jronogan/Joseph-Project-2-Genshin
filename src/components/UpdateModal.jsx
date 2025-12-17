@@ -1,25 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  addNewObtainedChar,
+  formatName,
   getAllArtifacts,
   getAllCharacters,
   getAllElements,
   getAllWeapons,
+  getCharacterDetails,
+  getWeaponDetails,
   updateChar,
 } from "../api";
 
 const Overlay = (props) => {
   const [updatedChar, setUpdatedChar] = useState({
     id: props.id,
-    Name: props.name,
     Constellation: props.constellation,
     Weapon: props.weapon,
     Artifact: props.artifact,
-    Element: props.element,
   });
-
+  const [error, setError] = useState("");
+  const [weaponType, setWeaponType] = useState("");
   const queryClient = useQueryClient();
 
   // Fetch all characters for character dropdown
@@ -27,6 +28,20 @@ const Overlay = (props) => {
     queryKey: ["characters"],
     queryFn: getAllCharacters,
   });
+
+  // Specific Character
+  const querySelectedCharacter = useQuery({
+    queryKey: ["characterselected", props.name],
+    queryFn: () => getCharacterDetails(props.name),
+  });
+
+  useEffect(() => {
+    if (querySelectedCharacter.isSuccess && querySelectedCharacter.data) {
+      const charWeaponType = querySelectedCharacter.data.weapon;
+      console.log(charWeaponType);
+      setWeaponType(charWeaponType);
+    }
+  }, [querySelectedCharacter.data, querySelectedCharacter.isSuccess]);
 
   // Fetch all weapons for character dropdown
   const queryAllWeapons = useQuery({
@@ -65,13 +80,37 @@ const Overlay = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!updatedChar.Name) {
-      alert("Please select a character");
+    if (error) {
+      setError("Wrong Weapon Type. Please Change.");
       return;
     }
-    console.log(updatedChar);
+
     updateCharMutate.mutate(updatedChar);
   };
+
+  // Obtain weapon details
+  const querySelectedWeapon = useQuery({
+    queryKey: ["weapon", updatedChar.Weapon],
+    queryFn: () => getWeaponDetails(updatedChar.Weapon),
+    enabled: !!updatedChar.Weapon,
+  });
+
+  useEffect(() => {
+    if (!weaponType) return;
+
+    if (querySelectedWeapon.isSuccess && querySelectedWeapon.data) {
+      const selectedWeaponType = querySelectedWeapon.data.type;
+      console.log(selectedWeaponType);
+      if (weaponType !== selectedWeaponType) {
+        setError(
+          `Weapon type ${selectedWeaponType} cannot be used by the character`
+        );
+        return;
+      } else {
+        setError("");
+      }
+    }
+  }, [querySelectedWeapon.isSuccess, querySelectedWeapon.data]);
 
   return (
     <div className="modal-overlay">
@@ -84,24 +123,8 @@ const Overlay = (props) => {
           ×
         </button>
         <form onSubmit={handleSubmit}>
-          <h2>Update Character</h2>
+          <h2>Update {formatName(props.name)}'s Details</h2>
           <div className="form-group">
-            <label>Name</label>
-            {/* SELECT NAME OPTIONS */}
-            <select
-              name="Name"
-              value={updatedChar.Name}
-              onChange={handleChange}
-              className="form-control"
-            >
-              <option value={updatedChar.Name}>{updatedChar.Name}</option>
-              {queryAllChars.isSuccess &&
-                queryAllChars.data.map((char) => (
-                  <option key={char} value={char}>
-                    {char}
-                  </option>
-                ))}
-            </select>
             <label>Constellation</label>
             {/* SELECT CONSTELLATION OPTIONS */}
             <select
@@ -143,14 +166,17 @@ const Overlay = (props) => {
               onChange={handleChange}
               className="form-control"
             >
-              <option value={updatedChar.Weapon}>{updatedChar.Weapon}</option>
+              <option value={updatedChar.Weapon}>
+                {formatName(updatedChar.Weapon)}
+              </option>
               {queryAllWeapons.isSuccess &&
                 queryAllWeapons.data.map((weapon) => (
                   <option key={weapon} value={weapon}>
-                    {weapon}
+                    {formatName(weapon)}
                   </option>
                 ))}
             </select>
+            {error && <div className="error-message">{error}</div>}
             <label>Artifact</label>
             {/* SELECT ARTIFACT OPTIONS */}
             <select
@@ -160,31 +186,16 @@ const Overlay = (props) => {
               className="form-control"
             >
               <option value={updatedChar.Artifact}>
-                {updatedChar.Artifact}
+                {formatName(updatedChar.Artifact)}
               </option>
               {queryAllArtifacts.isSuccess &&
                 queryAllArtifacts.data.map((artifact) => (
                   <option key={artifact} value={artifact}>
-                    {artifact}
+                    {formatName(artifact)}
                   </option>
                 ))}
             </select>
 
-            <label>Element</label>
-            <select
-              name="Element"
-              value={updatedChar.Element}
-              onChange={handleChange}
-              className="form-control"
-            >
-              <option value={updatedChar.Element}>{updatedChar.Element}</option>
-              {queryAllElements.isSuccess &&
-                queryAllElements.data.map((element) => (
-                  <option key={element} value={element}>
-                    {element}
-                  </option>
-                ))}
-            </select>
             <button type="submit">Update</button>
           </div>
         </form>

@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteChar, EXT_BASE_URL, myObtainedCharacters } from "../api";
+import {
+  deleteChar,
+  EXT_BASE_URL,
+  formatName,
+  myObtainedCharacters,
+} from "../api";
 import { Link, useParams } from "react-router-dom";
 import AddModal from "./AddModal";
 import UpdateModal from "./UpdateModal";
@@ -61,20 +66,44 @@ const MyCharacters = () => {
                   <div className="char-info">
                     <Link
                       to={`/characters/${char.fields.Name.toLowerCase()}`}
-                    >{`${char.fields.Name} details`}</Link>
-                    <h2>Name: {char.fields.Name}</h2>
+                    >{`${formatName(char.fields.Name)} details`}</Link>
+                    <h2>Name: {formatName(char.fields.Name)}</h2>
                     <p>Constellation: {char.fields.Constellation}</p>
-                    <p>Weapon: {char.fields.Weapon}</p>
-                    <p>Artifact: {char.fields.Artifact}</p>
-                    <p>Element: {char.fields.Element}</p>
+                    <p>Weapon: {formatName(char.fields.Weapon)}</p>
+                    <p>Artifact: {formatName(char.fields.Artifact)}</p>
+                    <p className={`Element-${char.fields.Element}`}>
+                      Element: {formatName(char.fields.Element)}
+                    </p>
                   </div>
 
-                  <img
-                    src={`${EXT_BASE_URL}characters/${char.fields.Name.toLowerCase()}/card`}
-                    alt={`${char.fields.Name} card image`}
-                    // style={{ maxWidth: "auto", height: "300px" }}
-                    className="char-card-image"
-                  />
+                  <div className="char-images-container">
+                    <img
+                      src={`${EXT_BASE_URL}characters/${char.fields.Name.toLowerCase()}/card`}
+                      alt={`${char.fields.Name} card image`}
+                      className="char-main-image"
+                      loading="lazy"
+                    />
+                    <div className="char-icons">
+                      <div className="char-icon">
+                        <img
+                          src={`${EXT_BASE_URL}weapons/${char.fields.Weapon.toLowerCase()}/icon`}
+                          alt={`${char.fields.Weapon} icon`}
+                          className="weapon-icon"
+                          loading="lazy"
+                        />
+                        <span className="icon-label">Weapon</span>
+                      </div>
+                      <div className="char-icon">
+                        <img
+                          src={`${EXT_BASE_URL}elements/${char.fields.Element.toLowerCase()}/icon`}
+                          alt={`${char.fields.Element} icon`}
+                          className="element-icon"
+                          loading="lazy"
+                        />
+                        <span className="icon-label">Element</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="char-actions">
