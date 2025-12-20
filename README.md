@@ -40,6 +40,7 @@ The Genshin Impact Character Tracker is a comprehensive React-based web applicat
 2. React Router
 3. TanStack Query (React Query)
 4. Airtable
+5. Bruno
 
 ## API Usage
 
